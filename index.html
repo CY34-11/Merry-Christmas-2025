@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Christmas Tree</title>
+<style>
+  body {
+    background-color: #000;
+    overflow: hidden; /* Prevent scrollbars */
+  }
+
+  #tree-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px; /* Adjust size as needed */
+    height: 300px; /* Adjust size as needed */
+    perspective: 800px;
+  }
+
+  #tree {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+  }
+
+  .branch {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 50px 100px 50px;
+    border-color: transparent transparent #228B22 transparent; /* Dark Green */
+    transform-origin: bottom;
+    animation: fadeIn 2s ease-in-out forwards;
+  }
+
+  .branch:nth-child(1) {
+    bottom: 0;
+    left: 0;
+  }
+
+  .branch:nth-child(2) {
+    bottom: 50px;
+    left: 0;
+    border-width: 0 30px 60px 30px;
+  }
+
+  .branch:nth-child(3) {
+    bottom: 110px;
+    left: 0;
+    border-width: 0 10px 20px 10px;
+  }
+
+  .ornament {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: gold; /* Or any color */
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .ornament:nth-child(1) {
+    top: 30px;
+    left: 20px;
+    animation-delay: 1s;
+  }
+
+  .ornament:nth-child(2) {
+    top: 80px;
+    left: 40px;
+    animation-delay: 0.5s;
+  }
+
+  .ornament:nth-child(3) {
+    top: 130px;
+    left: 10px;
+    animation-delay: 1.5s;
+  }
+
+  .star {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    background-color: gold;
+    animation: twinkle 2s ease-in-out infinite;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: rotateX(-90deg) scale(0); }
+    to { opacity: 1; transform: rotateX(0deg) scale(1); }
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+  }
+
+  @keyframes twinkle {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+
+  /* Snowflakes (Basic) */
+  .snowflake {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: white;
+    border-radius: 50%;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    from {
+      transform: translateY(-100vh) translateX(var(--x-offset));
+      opacity: 0.8;
+    }
+    to {
+      transform: translateY(100vh) translateX(var(--x-offset));
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <div id="tree-container">
+    <div id="tree">
+      <div class="branch"></div>
+      <div class="branch"></div>
+      <div class="branch"></div>
+      <div class="ornament"></div>
+      <div class="ornament"></div>
+      <div class="ornament"></div>
+      <div class="star"></div>
+    </div>
+  </div>
+
+  <script>
+    // Snowflakes
+    const numSnowflakes = 50; // Adjust for more or fewer snowflakes
+    const container = document.body; // Or a specific container element
+
+    for (let i = 0; i < numSnowflakes; i++) {
+        const snowflake = document.createElement("div");
+        snowflake.classList.add("snowflake");
+
+        // Randomize position and animation properties
+        const xOffset = Math.random() * window.innerWidth;
+        const animationDuration = 5 + Math.random() * 10; // 5-15 seconds
+        snowflake.style.left = `${xOffset}px`;
+        snowflake.style.animationDuration = `${animationDuration}s`;
+        snowflake.style.setProperty('--x-offset', `${Math.random() * 100 - 50}px`); // Add horizontal movement
+
+        container.appendChild(snowflake);
+    }
+  </script>
+</body>
+</html>
